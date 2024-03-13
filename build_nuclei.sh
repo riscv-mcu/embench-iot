@@ -1,4 +1,4 @@
-ARCH_OPT=${ARCH_OPT:-"-march=rv32imafd_zca_zcb_zcf_zcmp_zcmt_zba_zbb_zbc_zbs_zicond_xxlcz -mabi=ilp32d"}
+ARCH_OPT=${ARCH_OPT:-"-march=rv32ima_zca_zcb_zcmp_zcmt_zba_zbb_zbc_zbs -mabi=ilp32"}
 OLEVEL=${OLEVEL:-"-Os"}
 CLIB=${CLIB:-0}
 

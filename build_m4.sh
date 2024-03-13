@@ -1,4 +1,4 @@
-ARCH_OPT=${ARCH_OPT:-"-mcpu=cortex-m4"}
+ARCH_OPT=${ARCH_OPT:-"-mcpu=cortex-m3"}
 OLEVEL=${OLEVEL:-"-Os"}
 CLIB=${CLIB:-0}
 
