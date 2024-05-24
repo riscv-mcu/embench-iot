@@ -254,6 +254,46 @@ __aeabi_uldivmod (unsigned long long int numerator __attribute__ ((unused)),
   return v;
 }
 
+int __aeabi_idiv(int numerator __attribute__ ((unused)), int denominator __attribute__ ((unused)))
+{
+    return 0;
+}
+
+long long __aeabi_lmul (long long a __attribute__ ((unused)), long long b __attribute__ ((unused)))
+{
+    return 0;
+}
+
+unsigned int __aeabi_uidivmod(unsigned int numerator __attribute__ ((unused)), unsigned int denominator __attribute__ ((unused)))
+{
+    return 0;
+}
+
+int __aeabi_idivmod(int numerator __attribute__ ((unused)), int denominator __attribute__ ((unused)))
+{
+    return 0;
+}
+
+void __gnu_thumb1_case_uhi(int i __attribute__ ((unused)))
+{
+
+}
+
+void __gnu_thumb1_case_uqi(int i __attribute__ ((unused)))
+{
+
+}
+
+void __gnu_thumb1_case_sqi(int i __attribute__ ((unused)))
+{
+
+}
+
+void __gnu_thumb1_case_shi(int i __attribute__ ((unused)))
+{
+
+}
+
 #else /* !__ARM__ */
 
 /* Generic libgcc functions */
