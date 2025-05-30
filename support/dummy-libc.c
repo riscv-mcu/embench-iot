@@ -390,7 +390,7 @@ tolower (int c __attribute__ ((unused)))
 }
 
 /* Extra bits just for AVR */
-#ifdef __AVR__
+#if defined(__AVR__) || defined(__zcc__)
 
 int
 isspace (int c __attribute__ ((unused)))

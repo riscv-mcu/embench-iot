@@ -13,6 +13,7 @@
 #define BEEBSC_H
 
 #include <stddef.h>
+#include <stdlib.h>
 
 /* BEEBS fixes RAND_MAX to its lowest permitted value, 2^15-1 */
 
