@@ -15,8 +15,8 @@ fi
 set -x
 ./build_all.py --clean --arch riscv32 --chip generic --board ri5cyverilator \
     --cc zcc --ld zcc \
-    --cflags="-c ${OLEVEL} ${ARCH_OPT} ${LIBFLAGS} -ffunction-sections" \
-    --ldflags="${ARCH_OPT} ${LIBFLAGS} -Wl,-gc-sections" \
+    --cflags="-c ${OLEVEL} ${ARCH_OPT} ${LIBFLAGS} -ffunction-sections -flto -mllvm --riscv-machine-outliner=true" \
+    --ldflags="${ARCH_OPT} ${LIBFLAGS} -flto -Wl,-mllvm,--riscv-machine-outliner=true -Wl,-gc-sections" \
     --user-libs="$USERLIBS" \
     --dummy-libs="$DUMMYLIBS"
 
