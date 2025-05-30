@@ -3,7 +3,7 @@ OLEVEL=${OLEVEL:-"-Os"}
 CLIB=${CLIB:-0}
 
 if [[ "$CLIB" == "libncrt_"* ]] ; then
-    LIBFLAGS="-specs=${CLIB}.specs"
+    LIBFLAGS="-specs=${CLIB}.specs -lheapops_basic -lfileops_uart"
     USERLIBS=""
     DUMMYLIBS="libncrt"
 elif [ "x$CLIB" = "x0" ] ; then
