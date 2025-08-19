@@ -2,15 +2,19 @@ ARCH_OPT=${ARCH_OPT:-"-march=rv32ima_zca_zcb_zcmp_zcmt_zba_zbb_zbc_zbs -mabi=ilp
 OLEVEL=${OLEVEL:-"-Os"}
 CLIB=${CLIB:-0}
 TMOUT=${TMOUT:-60}
-COMPILER=${COMPILER:-zcc}
+COMPILER=${COMPILER:-riscv64-unknown-elf-clang}
 LINKER=${LINKER:-${COMPILER}}
 
-if [ "x$CLIB" = "x0" ] ; then
+if [[ "$CLIB" == "libncrt_"* ]] ; then
+    LIBFLAGS="-lncrt${CLIB/libncrt/} -lheapops_basic -lfileops_uart -lgcc -lnosys"
+    USERLIBS=""
+    DUMMYLIBS="libncrt"
+elif [ "x$CLIB" = "x0" ] ; then
     LIBFLAGS=" -nostdlib"
     USERLIBS=""
     DUMMYLIBS="crt0 libgcc libm libc"
 else
-    LIBFLAGS="-lc_nano -lclang_rt.builtins_nano -lsemihost -lunwind"
+    LIBFLAGS="-lc_nano -lgcc -lnosys"
     USERLIBS="-lm"
     DUMMYLIBS=""
 fi
@@ -18,8 +22,8 @@ fi
 set -x
 ./build_all.py --clean --timeout ${TMOUT} --arch riscv32 --chip generic --board ri5cyverilator \
     --cc ${COMPILER} --ld ${LINKER} \
-    --cflags="-c ${OLEVEL} ${ARCH_OPT} ${LIBFLAGS} -ffunction-sections -flto -mllvm --riscv-machine-outliner=true" \
-    --ldflags="${OLEVEL} ${ARCH_OPT} ${LIBFLAGS} -flto -Wl,-mllvm,--riscv-machine-outliner=true -Wl,-gc-sections" \
+    --cflags="-c ${OLEVEL} ${ARCH_OPT} ${LIBFLAGS} -ffunction-sections" \
+    --ldflags="${OLEVEL} ${ARCH_OPT} ${LIBFLAGS} -fuse-ld=lld -Wl,-gc-sections" \
     --user-libs="$USERLIBS" \
     --dummy-libs="$DUMMYLIBS"
 

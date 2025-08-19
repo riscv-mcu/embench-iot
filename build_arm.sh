@@ -1,6 +1,9 @@
 ARCH_OPT=${ARCH_OPT:-"-mcpu=cortex-m3"}
 OLEVEL=${OLEVEL:-"-Os"}
 CLIB=${CLIB:-0}
+TMOUT=${TMOUT:-60}
+COMPILER=${COMPILER:-arm-none-eabi-gcc}
+LINKER=${LINKER:-${COMPILER}}
 
 if [ "x$CLIB" = "x0" ] ; then
     LIBFLAGS=" -nostdlib"
@@ -14,10 +17,10 @@ fi
 
 set -x
 
-./build_all.py --clean --arch arm --chip cortex-m4 --board generic \
-    --cc arm-none-eabi-gcc \
+./build_all.py --clean --timeout ${TMOUT} --arch arm --chip cortex-m4 --board generic \
+    --cc ${COMPILER} --ld ${LINKER} \
     --cflags="-c ${OLEVEL} ${ARCH_OPT} ${LIBFLAGS} -ffunction-sections" \
-    --ldflags="${ARCH_OPT} ${LIBFLAGS} -Wl,-gc-sections" \
+    --ldflags="${OLEVEL} ${ARCH_OPT} ${LIBFLAGS} -Wl,-gc-sections" \
     --user-libs="$USERLIBS" \
     --dummy-libs="$DUMMYLIBS"
 

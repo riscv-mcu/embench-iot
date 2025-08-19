@@ -1,6 +1,9 @@
 ARCH_OPT=${ARCH_OPT:-"-march=rv32ima_zca_zcb_zcmp_zcmt_zba_zbb_zbc_zbs -mabi=ilp32"}
 OLEVEL=${OLEVEL:-"-Os"}
 CLIB=${CLIB:-0}
+TMOUT=${TMOUT:-60}
+COMPILER=${COMPILER:-riscv64-unknown-elf-gcc}
+LINKER=${LINKER:-${COMPILER}}
 
 if [[ "$CLIB" == "libncrt_"* ]] ; then
     LIBFLAGS="-specs=${CLIB}.specs -lheapops_basic -lfileops_uart"
@@ -17,10 +20,10 @@ else
 fi
 
 set -x
-./build_all.py --clean --arch riscv32 --chip generic --board ri5cyverilator \
-    --cc riscv64-unknown-elf-gcc \
+./build_all.py --clean --timeout ${TMOUT} --arch riscv32 --chip generic --board ri5cyverilator \
+    --cc ${COMPILER} --ld ${LINKER} \
     --cflags="-c ${OLEVEL} ${ARCH_OPT} ${LIBFLAGS} -ffunction-sections" \
-    --ldflags="${ARCH_OPT} ${LIBFLAGS} -Wl,-gc-sections" \
+    --ldflags="${OLEVEL} ${ARCH_OPT} ${LIBFLAGS} -Wl,-gc-sections" \
     --user-libs="$USERLIBS" \
     --dummy-libs="$DUMMYLIBS"
 
