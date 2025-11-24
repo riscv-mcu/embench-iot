@@ -3,6 +3,7 @@
 
 void exit(int fd)
 {
+  exit(fd);
 }
 
 void __libc_fini_array(void)
