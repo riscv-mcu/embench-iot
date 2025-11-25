@@ -10,9 +10,9 @@ if [ "x$CLIB" = "x0" ] ; then
     USERLIBS=""
     DUMMYLIBS="crt0 libgcc libm libc"
 else
-    LIBFLAGS="-lc_nano -lclang_rt.builtins_nano -lsemihost -lunwind"
+    LIBFLAGS="--config=nano.cfg"
     USERLIBS="-lm"
-    DUMMYLIBS=""
+    DUMMYLIBS="mculib"
 fi
 
 set -x
